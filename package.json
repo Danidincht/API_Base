@@ -1,0 +1,27 @@
+{
+  "name": "api_base",
+  "version": "0.0.1",
+  "description": "Base code for an ExpressJS API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Danidincht/API_Base.git"
+  },
+  "keywords": [
+    "API",
+    "expressjs",
+    "nodejs",
+    "node",
+    "js",
+    "typescript"
+  ],
+  "author": "Pedro Herrera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Danidincht/API_Base/issues"
+  },
+  "homepage": "https://github.com/Danidincht/API_Base#readme"
+}
