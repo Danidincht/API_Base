@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/Danidincht/API_Base/issues"
   },
-  "homepage": "https://github.com/Danidincht/API_Base#readme"
+  "homepage": "https://github.com/Danidincht/API_Base#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
