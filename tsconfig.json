@@ -1,0 +1,8 @@
+{
+	"include": ["index.ts"],
+	"compilerOptions": {
+		"noImplicitAny": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+	}
+}
