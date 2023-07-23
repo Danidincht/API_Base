@@ -1,5 +1,5 @@
 {
-	"include": ["server/server/index.ts"],
+	"include": ["./server/**/*.ts"],
 	"compilerOptions": {
 		"noImplicitAny": true,
 		"noImplicitOverride": true,
