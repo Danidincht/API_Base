@@ -1,8 +1,10 @@
 {
-	"include": ["index.ts"],
+	"include": ["server/server/index.ts"],
 	"compilerOptions": {
 		"noImplicitAny": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
+		"module": "CommonJS",
+		"outDir": "dist"
 	}
 }
