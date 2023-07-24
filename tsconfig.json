@@ -1,10 +1,11 @@
 {
-	"include": ["./server/**/*.ts"],
+	"include": ["src/*.ts"],
 	"compilerOptions": {
 		"noImplicitAny": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
 		"module": "CommonJS",
-		"outDir": "dist"
+		"outDir": "dist/",
+		"rootDir": "src/",
 	}
 }
