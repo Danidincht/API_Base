@@ -16,7 +16,7 @@
 				"semi": ["error", "always", {}]
 			},
 			"extends": [
-				"plugin:@typescript-eslint/strict",
+				"plugin:@typescript-eslint/strict"
 			]
 		}
 	]
