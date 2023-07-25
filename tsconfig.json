@@ -1,5 +1,6 @@
 {
 	"include": ["src/*.ts"],
+	"exclude": ["src/**/__tests__/**"],
 	"compilerOptions": {
 		"noImplicitAny": true,
 		"noImplicitOverride": true,
