@@ -1,7 +1,7 @@
 import * as express from 'express';
 
 export function startServer() : void {
-	const server =  express();
+	const server = express();
 	const port = 3000;
 
 	server.get('/', (request, response) => {
