@@ -1,14 +1,14 @@
 {
-	"include": ["../src/**/*.ts"],
+	"include": ["./src/**/*.ts"],
 	"compilerOptions": {
 		"noImplicitAny": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
 		"module": "CommonJS",
-		"outDir": "../dist/",
-		"rootDir": "../src/",
+		"outDir": "./dist/",
+		"rootDir": "./src/",
 		"paths": {
-			"#routes": ["../src/routes"]
+			"#routes": ["./src/routes/"]
 		}
 	}
 }
