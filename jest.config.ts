@@ -8,6 +8,8 @@ const config: Config = {
   preset: 'ts-jest',
   clearMocks: true,
   randomize: true,
+  roots: ['<rootDir>'],
+  modulePaths: [compilerOptions.baseUrl],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths)
 };
 

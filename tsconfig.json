@@ -5,10 +5,11 @@
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
 		"module": "CommonJS",
-		"outDir": "./dist/",
-		"rootDir": "./src/",
+		"outDir": "dist/",
+		"rootDir": "src/",
+		"baseUrl": ".",
 		"paths": {
-			"#routes": ["./src/routes/"]
+			"#routes": ["src/routes"]
 		}
 	}
 }
