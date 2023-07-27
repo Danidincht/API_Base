@@ -3,7 +3,7 @@ import { routes } from '#routes';
 
 export function startServer() : void {
 	const server = express();
-	const port = 3000;
+	const port = process.env.PORT;
 
 	server.get('/', (request, response) => {
 		response.send('Hello world');
