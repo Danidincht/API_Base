@@ -1,12 +1,13 @@
-const mockGet = jest.fn();
 jest.mock('express', () => {
-	return () => ({
-		get: mockGet
-	});
+	return () => mockExpress;
 });
 
 import healthcheck from '../healthcheck';
 import * as express from 'express';
+
+const mockExpress = {
+	get: jest.fn()
+};
 
 describe('/healthcheck route', () => {
 	const responseMock = {
@@ -34,7 +35,7 @@ describe('/healthcheck route', () => {
 			// Given 
 			const server = express();
 			healthcheck(server);
-			const routeFn = mockGet.mock.calls[0][1];
+			const routeFn = mockExpress.get.mock.calls[0][1];
 
 			// When
 			routeFn(null, responseMock);
@@ -48,7 +49,7 @@ describe('/healthcheck route', () => {
 			// Given 
 			const server = express();
 			healthcheck(server);
-			const routeFn = mockGet.mock.calls[0][1];
+			const routeFn = mockExpress.get.mock.calls[0][1];
 
 			// When
 			routeFn(null, responseMock);
