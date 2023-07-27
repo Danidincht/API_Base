@@ -8,7 +8,7 @@ jest.mock('express', () => {
 import healthcheck from '../healthcheck';
 import * as express from 'express';
 
-describe('healthcheck route', () => {
+describe('/healthcheck route', () => {
 	const responseMock = {
 		status: jest.fn(() => responseMock),
 		send: jest.fn()
