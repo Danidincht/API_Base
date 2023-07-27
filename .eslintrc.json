@@ -4,11 +4,10 @@
 		"jest",
 		"@typescript-eslint"
 	],
-	"root": true,
 	"overrides": [
 		{
 			"files": [
-				"./src/**"
+				"src/**"
 			],
 			"rules": {
 				"quotes": ["error", "single"],
@@ -16,7 +15,7 @@
 				"semi": ["error", "always", {}]
 			},
 			"extends": [
-				"plugin:@typescript-eslint/strict",
+				"plugin:@typescript-eslint/strict"
 			]
 		}
 	]

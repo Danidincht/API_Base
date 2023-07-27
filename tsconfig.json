@@ -1,6 +1,5 @@
 {
-	"include": ["src/*.ts"],
-	"exclude": ["src/**/__tests__/**"],
+	"include": ["./src/**/*.ts"],
 	"compilerOptions": {
 		"noImplicitAny": true,
 		"noImplicitOverride": true,
@@ -8,5 +7,9 @@
 		"module": "CommonJS",
 		"outDir": "dist/",
 		"rootDir": "src/",
+		"baseUrl": ".",
+		"paths": {
+			"#routes": ["src/routes"]
+		}
 	}
 }

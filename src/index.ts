@@ -1,3 +1,4 @@
-import { startServer } from "./server";
+require('module-alias/register');
+import { startServer } from './server';
 
 startServer();
