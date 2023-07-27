@@ -35,13 +35,17 @@ describe('startServer', () => {
 	});
 
 	it('listens to the 3000 port', () => {
-		// Given - When
+		// Given
+		const expectedPort = '3000';
+		process.env.PORT = expectedPort;
+		
+		// When
 		startServer();
 
 		// Then
 		expect(mockListen).toBeCalledTimes(1);
 		expect(mockListen).toBeCalledWith(
-			3000,
+			expectedPort,
 			expect.any(Function)
 		);
 	});
