@@ -14,46 +14,48 @@ describe('/healthcheck route', () => {
 		send: jest.fn()
 	} as unknown as express.Response;
 
-	it('gets added to express routing', () => {
-		// Given
-		const server = express();
+	describe('GET /healthcheck endpoint', () => {
+		it('gets added to express routing', () => {
+			// Given
+			const server = express();
 
-		// When
-		healthcheck(server);
+			// When
+			healthcheck(server);
 
-		// Then
-		expect(server.get).toBeCalledTimes(1);
-		expect(server.get).toBeCalledWith(
-			'/healthcheck',
-			expect.any(Function)
-		);
-	});
+			// Then
+			expect(server.get).toBeCalledTimes(1);
+			expect(server.get).toBeCalledWith(
+				'/healthcheck',
+				expect.any(Function)
+			);
+		});
 
-	it('sets response status code as 200', () => {
-		// Given 
-		const server = express();
-		healthcheck(server);
-		const routeFn = mockGet.mock.calls[0][1];
+		it('sets response status code as 200', () => {
+			// Given 
+			const server = express();
+			healthcheck(server);
+			const routeFn = mockGet.mock.calls[0][1];
 
-		// When
-		routeFn(null, responseMock);
+			// When
+			routeFn(null, responseMock);
 
-		// Then
-		expect(responseMock.status).toBeCalledTimes(1);
-		expect(responseMock.status).toBeCalledWith(200);
-	});
+			// Then
+			expect(responseMock.status).toBeCalledTimes(1);
+			expect(responseMock.status).toBeCalledWith(200);
+		});
 
-	it('sets response body successful', () => {
-		// Given 
-		const server = express();
-		healthcheck(server);
-		const routeFn = mockGet.mock.calls[0][1];
+		it('sets response body successful', () => {
+			// Given 
+			const server = express();
+			healthcheck(server);
+			const routeFn = mockGet.mock.calls[0][1];
 
-		// When
-		routeFn(null, responseMock);
+			// When
+			routeFn(null, responseMock);
 
-		// Then
-		expect(responseMock.send).toBeCalledTimes(1);
-		expect(responseMock.send).toBeCalledWith('Server up and running');
+			// Then
+			expect(responseMock.send).toBeCalledTimes(1);
+			expect(responseMock.send).toBeCalledWith('Server up and running');
+		});
 	});
 });
