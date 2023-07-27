@@ -14,6 +14,21 @@ describe('/healthcheck route', () => {
 		send: jest.fn()
 	} as unknown as express.Response;
 
+	it('gets added to express routing', () => {
+		// Given
+		const server = express();
+
+		// When
+		healthcheck(server);
+
+		// Then
+		expect(server.get).toBeCalledTimes(1);
+		expect(server.get).toBeCalledWith(
+			'/healthcheck',
+			expect.any(Function)
+		);
+	});
+
 	it('sets response status code as 200', () => {
 		// Given 
 		const server = express();
