@@ -1,18 +1,8 @@
+jest.mock('express');
+
 import { startServer } from '../index';
 import { routes } from '#routes';
-
-const mockExpress = jest.fn();
-const mockGet = jest.fn();
-const mockListen = jest.fn();
-jest.mock('express', () => {
-	return () => {
-		mockExpress();
-		return {
-			get: mockGet,
-			listen: mockListen
-		};
-	};
-});
+import * as express from 'express';
 
 describe('startServer', () => {
 	it('starts the server', () => {
@@ -20,7 +10,7 @@ describe('startServer', () => {
 		startServer();
 
 		// Then
-		expect(mockExpress).toBeCalledTimes(1);
+		expect(express).toBeCalledTimes(1);
 	});
 
 	it('creates / (root) endpoint', () => {
@@ -28,7 +18,7 @@ describe('startServer', () => {
 		startServer();
 
 		// Then
-		expect(mockGet).toHaveBeenNthCalledWith(1,
+		expect(express().get).toHaveBeenNthCalledWith(1,
 			'/',
 			expect.any(Function)
 		);
@@ -43,8 +33,8 @@ describe('startServer', () => {
 		startServer();
 
 		// Then
-		expect(mockListen).toBeCalledTimes(1);
-		expect(mockListen).toBeCalledWith(
+		expect(express().listen).toBeCalledTimes(1);
+		expect(express().listen).toBeCalledWith(
 			expectedPort,
 			expect.any(Function)
 		);
@@ -55,6 +45,6 @@ describe('startServer', () => {
 		startServer();
 
 		// Then
-		expect(mockGet).toBeCalledTimes(routes.length + 1);
+		expect(express().get).toBeCalledTimes(routes.length + 1);
 	});
 });
