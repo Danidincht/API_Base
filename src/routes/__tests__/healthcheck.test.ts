@@ -1,19 +1,17 @@
-jest.mock('express', () => {
-	return () => mockExpress;
-});
+jest.mock('express');
 
 import healthcheck from '../healthcheck';
 import * as express from 'express';
 
-const mockExpress = {
-	get: jest.fn()
-};
-
 describe('/healthcheck route', () => {
 	const responseMock = {
-		status: jest.fn(() => responseMock),
-		send: jest.fn()
-	} as unknown as express.Response;
+			status: jest.fn(() => responseMock),
+			send: jest.fn()
+		} as unknown as express.Response,
+		requestMock = {
+			body: 'fakeBody'
+		} as unknown as express.Request;
+	
 
 	describe('GET /healthcheck endpoint', () => {
 		it('gets added to express routing', () => {
@@ -35,7 +33,7 @@ describe('/healthcheck route', () => {
 			// Given 
 			const server = express();
 			healthcheck(server);
-			const routeFn = mockExpress.get.mock.calls[0][1];
+			const routeFn = (server.get as jest.Mock).mock.calls[0][1];
 
 			// When
 			routeFn(null, responseMock);
@@ -49,7 +47,7 @@ describe('/healthcheck route', () => {
 			// Given 
 			const server = express();
 			healthcheck(server);
-			const routeFn = mockExpress.get.mock.calls[0][1];
+			const routeFn = (server.get as jest.Mock).mock.calls[0][1];
 
 			// When
 			routeFn(null, responseMock);
@@ -57,6 +55,51 @@ describe('/healthcheck route', () => {
 			// Then
 			expect(responseMock.send).toBeCalledTimes(1);
 			expect(responseMock.send).toBeCalledWith('Server up and running');
+		});
+	});
+
+	describe('POST /healthcheck endpoint', () => {
+		it('gets added to express routing', () => {
+			// Given
+			const server = express();
+
+			// When
+			healthcheck(server);
+
+			// Then
+			expect(server.post).toBeCalledTimes(1);
+			expect(server.post).toBeCalledWith(
+				'/healthcheck',
+				expect.any(Function)
+			);
+		});
+
+		it('sets response status code as 200', () => {
+			// Given 
+			const server = express();
+			healthcheck(server);
+			const routeFn = (server.post as jest.Mock).mock.calls[0][1];
+
+			// When
+			routeFn(requestMock, responseMock);
+
+			// Then
+			expect(responseMock.status).toBeCalledTimes(1);
+			expect(responseMock.status).toBeCalledWith(200);
+		});
+
+		it('sets response body successful', () => {
+			// Given 
+			const server = express();
+			healthcheck(server);
+			const routeFn = (server.post as jest.Mock).mock.calls[0][1];
+
+			// When
+			routeFn(requestMock, responseMock);
+
+			// Then
+			expect(responseMock.send).toBeCalledTimes(1);
+			expect(responseMock.send).toBeCalledWith('Server up and running, Mr/Ms: ' + requestMock.body);
 		});
 	});
 });
