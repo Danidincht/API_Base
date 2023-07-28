@@ -1,8 +1,15 @@
 jest.mock('express');
+jest.mock('#routes', () => ({
+		routes: [
+			() => { mockRoutes(); }
+		]
+	})
+);
 
 import { startServer } from '../index';
-import { routes } from '#routes';
 import * as express from 'express';
+
+const mockRoutes = jest.fn();
 
 describe('startServer', () => {
 	it('starts the server', () => {
@@ -45,6 +52,6 @@ describe('startServer', () => {
 		startServer();
 
 		// Then
-		expect(express().get).toBeCalledTimes(routes.length + 1);
+		expect(mockRoutes).toBeCalledTimes(1);
 	});
 });
