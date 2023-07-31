@@ -1,18 +1,15 @@
-import { startServer } from '../index';
-import { routes } from '#routes';
+jest.mock('express');
+jest.mock('#routes', () => ({
+		routes: [
+			() => { mockRoutes(); }
+		]
+	})
+);
 
-const mockExpress = jest.fn();
-const mockGet = jest.fn();
-const mockListen = jest.fn();
-jest.mock('express', () => {
-	return () => {
-		mockExpress();
-		return {
-			get: mockGet,
-			listen: mockListen
-		};
-	};
-});
+import { startServer } from '../index';
+import * as express from 'express';
+
+const mockRoutes = jest.fn();
 
 describe('startServer', () => {
 	it('starts the server', () => {
@@ -20,7 +17,7 @@ describe('startServer', () => {
 		startServer();
 
 		// Then
-		expect(mockExpress).toBeCalledTimes(1);
+		expect(express).toBeCalledTimes(1);
 	});
 
 	it('creates / (root) endpoint', () => {
@@ -28,20 +25,24 @@ describe('startServer', () => {
 		startServer();
 
 		// Then
-		expect(mockGet).toHaveBeenNthCalledWith(1,
+		expect(express().get).toHaveBeenNthCalledWith(1,
 			'/',
 			expect.any(Function)
 		);
 	});
 
 	it('listens to the 3000 port', () => {
-		// Given - When
+		// Given
+		const expectedPort = '3000';
+		process.env.PORT = expectedPort;
+		
+		// When
 		startServer();
 
 		// Then
-		expect(mockListen).toBeCalledTimes(1);
-		expect(mockListen).toBeCalledWith(
-			3000,
+		expect(express().listen).toBeCalledTimes(1);
+		expect(express().listen).toBeCalledWith(
+			expectedPort,
 			expect.any(Function)
 		);
 	});
@@ -51,6 +52,6 @@ describe('startServer', () => {
 		startServer();
 
 		// Then
-		expect(mockGet).toBeCalledTimes(routes.length + 1);
+		expect(mockRoutes).toBeCalledTimes(1);
 	});
 });
