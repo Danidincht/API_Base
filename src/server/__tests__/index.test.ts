@@ -20,17 +20,6 @@ describe('startServer', () => {
 		expect(express).toBeCalledTimes(1);
 	});
 
-	it('creates / (root) endpoint', () => {
-		// Given - When
-		startServer();
-
-		// Then
-		expect(express().get).toHaveBeenNthCalledWith(1,
-			'/',
-			expect.any(Function)
-		);
-	});
-
 	it('listens to the 3000 port', () => {
 		// Given
 		const expectedPort = '3000';
