@@ -1,4 +1,4 @@
-import type { Express } from 'express';
+import { type Express, text } from 'express';
 
 const HEALTHCHECK_ENDPOINT = '/healthcheck';
 
@@ -9,7 +9,7 @@ export default function healthcheck(express: Express) {
 			.send('Server up and running');
 	});
 
-	express.post(HEALTHCHECK_ENDPOINT, (request, response) => {
+	express.post(HEALTHCHECK_ENDPOINT, text(), (request, response) => {
 		response
 			.status(200)
 			.send('Server up and running, Mr/Ms: ' + request.body);

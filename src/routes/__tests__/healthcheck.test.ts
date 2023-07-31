@@ -61,7 +61,9 @@ describe('/healthcheck route', () => {
 	describe('POST /healthcheck endpoint', () => {
 		it('gets added to express routing', () => {
 			// Given
-			const server = express();
+			const server = express(),
+				expectedBodyParser = 'bodyParser';
+			(express.text as jest.Mock).mockReturnValue(expectedBodyParser);
 
 			// When
 			healthcheck(server);
@@ -70,15 +72,27 @@ describe('/healthcheck route', () => {
 			expect(server.post).toBeCalledTimes(1);
 			expect(server.post).toBeCalledWith(
 				'/healthcheck',
+				expectedBodyParser,
 				expect.any(Function)
 			);
+		});
+
+		it('treats request body as raw text', () => {
+			// Given
+			const server = express();
+
+			// When
+			healthcheck(server);
+
+			// Then
+			expect(express.text).toBeCalledTimes(1);
 		});
 
 		it('sets response status code as 200', () => {
 			// Given 
 			const server = express();
 			healthcheck(server);
-			const routeFn = (server.post as jest.Mock).mock.calls[0][1];
+			const routeFn = (server.post as jest.Mock).mock.calls[0][2];
 
 			// When
 			routeFn(requestMock, responseMock);
@@ -92,7 +106,7 @@ describe('/healthcheck route', () => {
 			// Given 
 			const server = express();
 			healthcheck(server);
-			const routeFn = (server.post as jest.Mock).mock.calls[0][1];
+			const routeFn = (server.post as jest.Mock).mock.calls[0][2];
 
 			// When
 			routeFn(requestMock, responseMock);
